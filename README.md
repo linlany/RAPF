@@ -26,6 +26,15 @@ python main.py \
     class_order="class_orders/imagenet100.yaml"
 ```
 The dataset_root folder should contain the train and val folders.
+```
+imagenet1k_path
+├── train
+│   ├── n01440764 
+│   └── ···
+├── val
+│   ├── n01440764 
+│   └── ···
+```
 
 
 ### datasets
