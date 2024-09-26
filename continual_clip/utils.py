@@ -35,7 +35,7 @@ def save_config(config: DictConfig) -> None:
 
 def get_workdir(path):
     split_path = path.split("/")
-    workdir_idx = split_path.index("sup_code")
+    workdir_idx = split_path.index("RAPF") # If a 'ValueError' occurs, replace 'RAPF' with your actual work directory
     return "/".join(split_path[:workdir_idx+1])
 
 
