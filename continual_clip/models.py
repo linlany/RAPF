@@ -85,6 +85,7 @@ class ClassIncrementalCLIP(nn.Module):
         self.class_diff = None
         self.nearest_class = None
         self.class_edge_distance = []
+        self.mix_b = cfg.mix_bias
 
 
 
@@ -204,7 +205,7 @@ class ClassIncrementalCLIP(nn.Module):
             P_new = U_old.T @ weight_new
             dist = (P_new - torch.diag(S_old)@V_old).abs()
             mask = dist / dist.max()
-            mask += 0.5
+            mask += self.mix_b
             mask = torch.clamp(mask, max=1)
             right = P_new * mask + torch.diag(S_old)@V_old * (1-mask)
             weight = U_old @ right

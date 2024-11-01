@@ -29,7 +29,6 @@ epochs: 15
 lr: 0.001
 fp16: false
 seed: 2
-margin: 0.2
 milestones: [4,10]
 beta: 2
 mix_bias: 0.6

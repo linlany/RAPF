@@ -73,10 +73,16 @@ def run_class_incremental(cfg, device):
                 if task_id > 0:
                     sg_inputs = []
                     sg_targets = []
-                    list_for_one_batch = [random_class_order_list[batch_id*2%len(random_class_order_list)], random_class_order_list[(batch_id*2+1)%len(random_class_order_list)]]
+                    # num of classes per batch
+                    if cfg.dataset == "cifar100" and cfg.increment == 5:
+                        list_for_one_batch = [random_class_order_list[batch_id*4%len(random_class_order_list)], random_class_order_list[(batch_id*4+1)%len(random_class_order_list)], random_class_order_list[(batch_id*4+2)%len(random_class_order_list)], random_class_order_list[(batch_id*4+3)%len(random_class_order_list)]]
+                    elif cfg.dataset == "imagenet_R":
+                        list_for_one_batch = [random_class_order_list[batch_id*5%len(random_class_order_list)], random_class_order_list[(batch_id*5+1)%len(random_class_order_list)], random_class_order_list[(batch_id*5+2)%len(random_class_order_list)], random_class_order_list[(batch_id*5+3)%len(random_class_order_list)], random_class_order_list[(batch_id*5+4)%len(random_class_order_list)]]
+                    else:
+                        list_for_one_batch = [random_class_order_list[batch_id*2%len(random_class_order_list)], random_class_order_list[(batch_id*2+1)%len(random_class_order_list)]]
                     for i in list_for_one_batch:
-                        sg_inputs.append(sample(model.class_mean_list[i], model.class_cov_list[i],int(10), shrink=cfg.shrinkage))
-                        sg_targets.append(torch.ones(int(10), dtype=torch.long, device=device)*i)
+                        sg_inputs.append(sample(model.class_mean_list[i], model.class_cov_list[i],int(10*cfg.beta), shrink=cfg.shrinkage))
+                        sg_targets.append(torch.ones(int(10*cfg.beta), dtype=torch.long, device=device)*i)
                     sg_inputs = torch.cat(sg_inputs, dim=0)
                     sg_targets = torch.cat(sg_targets, dim=0)
                     targets = torch.cat([targets, sg_targets], dim=0)
@@ -85,9 +91,9 @@ def run_class_incremental(cfg, device):
                     edge_p_target = []
                     edge_n_target = []
                     for hard_pair in model.hard_pairs:
-                        edge_sample.append(sample(model.class_mean_list[hard_pair[0]], model.class_cov_list[hard_pair[0]],int(20), shrink=cfg.shrinkage))
-                        edge_p_target.append(torch.ones(int(20), dtype=torch.long, device=device)*hard_pair[0])
-                        edge_n_target.append(torch.ones(int(20), dtype=torch.long, device=device)*hard_pair[1])
+                        edge_sample.append(sample(model.class_mean_list[hard_pair[0]], model.class_cov_list[hard_pair[0]],int(20*cfg.beta), shrink=cfg.shrinkage))
+                        edge_p_target.append(torch.ones(int(20*cfg.beta), dtype=torch.long, device=device)*hard_pair[0])
+                        edge_n_target.append(torch.ones(int(20*cfg.beta), dtype=torch.long, device=device)*hard_pair[1])
                     edge_sample = torch.cat(edge_sample, dim=0)
                     edge_p_target = torch.cat(edge_p_target, dim=0)
                     edge_n_target = torch.cat(edge_n_target, dim=0)
