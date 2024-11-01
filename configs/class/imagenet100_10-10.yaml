@@ -22,7 +22,6 @@ initial_increment: 10
 increment: ${initial_increment}
 scenario: "class"
 dataset: "imagenet100"
-
 num_workers: 16
 train_batch_size: 128
 epochs: 15
@@ -31,6 +30,6 @@ fp16: false
 seed: 2
 milestones: [4,10]
 beta: 1
-mix_bias: 0.7
+mix_bias: 0.5
 threshold: 0.65
 shrinkage: False

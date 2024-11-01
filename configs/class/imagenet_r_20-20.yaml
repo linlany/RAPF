@@ -13,7 +13,7 @@ hydra:
 class_order: ""
 dataset_root: ""
 workdir: ""
-log_path: "zscl.json"
+log_path: "metric.json"
 model_name: "ViT-B/16"
 prompt_template: "a good photo of a {}."
 
@@ -22,7 +22,6 @@ initial_increment: 20
 increment: ${initial_increment}
 scenario: "class"
 dataset: "imagenet_R"
-# add conig
 num_workers: 16
 train_batch_size: 64
 epochs: 15
@@ -30,7 +29,7 @@ lr: 0.001
 fp16: false
 seed: 2
 milestones: [4,10]
-beta: 1
+beta: 1 
 mix_bias: 0.7
 threshold: 0.65
 shrinkage: True

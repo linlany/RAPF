@@ -73,7 +73,8 @@ def run_class_incremental(cfg, device):
                 if task_id > 0:
                     sg_inputs = []
                     sg_targets = []
-                    # num of classes per batch
+                    # num of classes per batch. Ensure an epoch traverses all classes at least once. 
+                    # For exemple, if there are 100 classes and 50 batches per epoch , there will be 2 classes per batch.
                     if cfg.dataset == "cifar100" and cfg.increment == 5:
                         list_for_one_batch = [random_class_order_list[batch_id*4%len(random_class_order_list)], random_class_order_list[(batch_id*4+1)%len(random_class_order_list)], random_class_order_list[(batch_id*4+2)%len(random_class_order_list)], random_class_order_list[(batch_id*4+3)%len(random_class_order_list)]]
                     elif cfg.dataset == "imagenet_R":
