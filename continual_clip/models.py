@@ -102,6 +102,8 @@ class ClassIncrementalCLIP(nn.Module):
         return x
     
     def encode_image(self, image):
+         # 确保输入数据类型与 self.visual 的权重类型一致
+        image = image.to(self.clip_type)
         return self.visual(image)
 
     
