@@ -68,14 +68,13 @@ Our method implementation is based on the [Continual-CLIP](https://github.com/vg
 If you find our repo useful for your research, please consider citing our paper:
 
 ```bibtex
-@misc{huang2024rapf,
-      title={Class-Incremental Learning with CLIP: Adaptive Representation Adjustment and Parameter Fusion}, 
-      author={Linlan Huang and Xusheng Cao and Haori Lu and Xialei Liu},
-      year={2024},
-      eprint={2407.14143},
-      archivePrefix={arXiv},
-      primaryClass={cs.CV},
-      url={https://arxiv.org/abs/2407.14143}, 
+@inproceedings{huang2024class,
+  title={Class-incremental learning with clip: Adaptive representation adjustment and parameter fusion},
+  author={Huang, Linlan and Cao, Xusheng and Lu, Haori and Liu, Xialei},
+  booktitle={European Conference on Computer Vision},
+  pages={214--231},
+  year={2024},
+  organization={Springer}
 }
 ```
 
