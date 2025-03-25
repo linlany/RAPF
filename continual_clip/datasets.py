@@ -6,7 +6,7 @@ import torch.nn as nn
 
 from continuum import ClassIncremental, InstanceIncremental
 from continuum.datasets import (
-    CIFAR100, ImageNet100, TinyImageNet200, ImageFolderDataset, Core50
+    CIFAR100, ImageNet100, TinyImageNet200, ImageFolderDataset, Core50,CUB200
 )
 from .utils import get_dataset_class_names, get_workdir
 
@@ -102,7 +102,13 @@ def get_dataset(cfg, is_train, transforms=None):
             train=is_train
         )
         classes_names = get_dataset_class_names(cfg.workdir, cfg.dataset)
-    
+    elif cfg.dataset == "cub200":
+        data_path = cfg.dataset_root
+        dataset = CUB200(
+            data_path, 
+            train=is_train
+        )
+        classes_names = get_dataset_class_names(cfg.workdir, cfg.dataset)
     else:
         ValueError(f"'{cfg.dataset}' is a invalid dataset.")
 
