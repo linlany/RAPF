@@ -1,0 +1,39 @@
+hydra:
+  run:
+    dir: ./experiments/${scenario}/${dataset}_${initial_increment}-${increment}_without_exp
+  job:
+    chdir: true
+
+  job_logging:
+    version: 1
+    formatters:
+      simple:
+        format: '%(message)s'
+
+class_order: ""
+dataset_root: ""
+workdir: ""
+log_path: "metric.json"
+model_name: "ViT-B/16"
+prompt_template: "a good photo of a {}."
+
+batch_size: 128
+initial_increment: 50  
+increment: 5
+scenario: "class"
+dataset: "cifar100"
+# Code that generates features and controls the number is too rough :(.
+# If you want to change the number of initial and increment and batch size, 
+# you should change the beta value and list_for_one_batch in the main code line 78.
+# beta *len(list_for_one_batch) * batch_num_per_epoch(relevant to bz) * 10 approximates 2000 , number of samples generated per epoch
+num_workers: 16
+train_batch_size: 50
+epochs: 15
+lr: 0.001
+fp16: false
+seed: 2
+milestones: [4,10]
+beta: 2 
+mix_bias: 0.6
+threshold: 0.55
+shrinkage: false
